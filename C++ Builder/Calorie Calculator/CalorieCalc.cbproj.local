@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2021.02.08 13:41:30.835,=C:\Users\alexa\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021.02.08 13:41:30.918,=C:\Users\alexa\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2021.02.08 13:41:52.585,C:\Users\alexa\Desktop\Calorie\Unit1.h=C:\Users\alexa\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2021.02.08 13:41:52.585,C:\Users\alexa\Desktop\Calorie\Unit1.cpp=C:\Users\alexa\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2021.02.08 13:41:52.585,C:\Users\alexa\Desktop\Calorie\Unit1.dfm=C:\Users\alexa\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021.02.08 13:41:53.789,C:\Users\alexa\Desktop\Calorie\Project1PCH1.h=C:\Users\alexa\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021.02.08 13:41:55.006,C:\Users\alexa\Desktop\Calorie\Project1.cbproj=C:\Users\alexa\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2021.02.08 21:31:11.414,C:\Users\alexa\Desktop\Calorie\CalorieCalcPCH1.h=C:\Users\alexa\Desktop\Calorie\Project1PCH1.h</Transaction>
+    <Transaction>2021.02.08 21:31:11.428,C:\Users\alexa\Desktop\Calorie\CalorieCalc.cbproj=C:\Users\alexa\Desktop\Calorie\Project1.cbproj</Transaction>
+  </Transactions>
+</BorlandProject>
