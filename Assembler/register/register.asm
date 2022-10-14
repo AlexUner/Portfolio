@@ -18,68 +18,68 @@ includelib \masm32\lib\kernel32.lib
 	
 .code
 start:
-	invoke GetCommandLine
-	cmp 	eax, 0
-	jz 	no
-	
-mark:
-	cmp byte ptr[eax],0 
-	jz no              
-	cmp byte ptr[eax],21h
-	jz argument
-	inc eax
-	jmp mark
+		invoke GetCommandLine
+		cmp 	eax, 0
+		jz 	no
 
-argument:
-	inc eax
-	cmp byte ptr[eax],0
-	jz no
-	cmp byte ptr[eax],20h
-	jz argument	
+	mark:
+		cmp byte ptr[eax],0 
+		jz no              
+		cmp byte ptr[eax],21h
+		jz argument
+		inc eax
+		jmp mark
 
-	mov bl, byte ptr[eax]
-	cmp bl, 122
-	ja  no
-	cmp bl, 97
-	jb  no
+	argument:
+		inc eax
+		cmp byte ptr[eax],0
+		jz no
+		cmp byte ptr[eax],20h
+		jz argument	
 
-mark2:
-	cmp byte ptr[eax],0
-	jz no
-	cmp byte ptr[eax],21h
-	jz argument2
-	inc eax
-	jmp mark2	
+		mov bl, byte ptr[eax]
+		cmp bl, 122
+		ja  no
+		cmp bl, 97
+		jb  no
 
-argument2:
-	inc eax
-	cmp byte ptr[eax],0
-	jz no
-	cmp byte ptr[eax],20h
-	jz argument2
+	mark2:
+		cmp byte ptr[eax],0
+		jz no
+		cmp byte ptr[eax],21h
+		jz argument2
+		inc eax
+		jmp mark2	
 
-	push eax
+	argument2:
+		inc eax
+		cmp byte ptr[eax],0
+		jz no
+		cmp byte ptr[eax],20h
+		jz argument2
 
-zamena:
-	cmp byte ptr [eax],0
-	jz cb
-	cmp byte ptr[eax], bl
-	jz up
-	inc eax
-	;inc bh
-	jmp zamena
-up:	
-	add byte ptr[eax], -32
-	jmp zamena
+		push eax
 
-cb:	
-	pop eax
+	zamena:
+		cmp byte ptr [eax],0
+		jz cb
+		cmp byte ptr[eax], bl
+		jz up
+		inc eax
+		;inc bh
+		jmp zamena
+	up:	
+		add byte ptr[eax], -32
+		jmp zamena
 
-	invoke wsprintf, addr Result, addr Format, eax
-	invoke MessageBox, NULL, addr Result, addr Caption, MB_OK
-	invoke ExitProcess, NULL
-no:
-	invoke MessageBox, NULL, addr alarma, addr Caption, MB_OK
-	invoke ExitProcess, NULL
+	cb:	
+		pop eax
+
+		invoke wsprintf, addr Result, addr Format, eax
+		invoke MessageBox, NULL, addr Result, addr Caption, MB_OK
+		invoke ExitProcess, NULL
+	no:
+		invoke MessageBox, NULL, addr alarma, addr Caption, MB_OK
+		invoke ExitProcess, NULL
 	
 end start
