@@ -66,7 +66,6 @@ start:
 		cmp byte ptr[eax], bl
 		jz up
 		inc eax
-		;inc bh
 		jmp zamena
 	up:	
 		add byte ptr[eax], -32
