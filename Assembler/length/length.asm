@@ -11,9 +11,9 @@ includelib \masm32\lib\kernel32.lib
 
 .data
 	Caption db "MASM32 Prog 1",0
-	alarma 	db "Некорректный ввод!",0
+	alarma 	db "Invalid input!",0
 	Result  db 255 dup(0)
-	Format  db "Кол-во символов: %lu",0
+	Format  db "Number of characters: %lu",0
 	
 .code
 start:
