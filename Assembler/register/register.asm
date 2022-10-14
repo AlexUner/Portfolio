@@ -11,9 +11,9 @@ includelib \masm32\lib\kernel32.lib
 
 .data
 	Caption db "MASM32 Prog 1",0
-	alarma 	db "Некорректный ввод!",0
+	alarma 	db "Invalid input!",0
 	Result  db 255 dup(0)
-	Format  db "Новая строка: %s",0
+	Format  db "New line: %s",0
 	bukv db 0
 	
 .code
@@ -22,9 +22,9 @@ start:
 	cmp    eax, 0
 	jz no
 	
-	mark:	; по сути связка марки и аргумента которые повторяются 2жды
-		cmp byte ptr[eax],0 ;марка чистит пробелы до знака
-		jz no               ;аргумент после
+	mark:
+		cmp byte ptr[eax],0 
+		jz no              
 		cmp byte ptr[eax],21h
 		jz argument
 		inc eax
@@ -37,13 +37,13 @@ start:
 		cmp byte ptr[eax],20h
 		jz argument	
 		
-	mov bl, byte ptr[eax] ; запись в символ и проверка на букивки
+	mov bl, byte ptr[eax]
 	cmp bl, 122
     ja  no
     cmp bl, 97
     jb  no
 		
-	mark2: ; вторая итерация на фразу
+	mark2:
 		cmp byte ptr[eax],0
 		jz no
 		cmp byte ptr[eax],21h
@@ -61,7 +61,7 @@ start:
 		;mov bh, 0
 		push eax
 		
-	zamena:	; замена букв
+	zamena:
 		cmp byte ptr [eax],0
 		jz cb
 		cmp byte ptr[eax], bl
@@ -73,11 +73,7 @@ start:
 		add byte ptr[eax], -32
 		jmp zamena
 		
-	cb:	; возврат "каретки"
-		;cmp bh,0
-		;dec eax
-		;dec bh
-		;jnz cb
+	cb:	
 		pop eax
 		
 	invoke wsprintf, addr Result, addr Format, eax
