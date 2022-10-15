@@ -20,9 +20,9 @@ option casemap: none
 		ChooseMessage    db "Press:", 13, "1. Yes, for key operation", 13,
 							"2. No, to work with the second string",0
 		MessageTemplate  db "Number of characters in entered string: %s",0
-		Lab4Format 	 	 db "New second string: %s", 13,
+		Lab2Format 	 	 db "New second string: %s", 13,
 							"Do you want to enter a new string?",0
-		Lab3Format       db "New line: %s", 13,
+		Lab1Format       db "New line: %s", 13,
 							"Do you want to enter a new key?",0
 
 		DefString   	 dd 50  dup (0)
@@ -69,157 +69,157 @@ endminmax:
     jnz    asciicheck				; end of check
 	
 	cmp    mode,6
-	jz     lab3ret					; return check for 3 4 labs
+	jz     lab1ret					; return check for 3 4 labs
 	cmp    mode,7
-	jz     lab4ret	
+	jz     lab2ret	
 	
 	invoke MessageBox, NULL, addr ChooseMessage, addr MsgBoxName, MB_YESNO
-	mov    mode, eax				; çàïèñü ðåæèìà
-	cmp    eax, 7					; âûáîð ðåæèìà ðàáîòû
-	jz     lab4mode 				; ïðûãàòü åñëè ðàáîòàòü ñî ñòðîêàìè
+	mov    mode, eax				; mode recording
+	cmp    eax, 7					; selection of operating mode
+	jz     lab2mode 				; jump if working with strings
 	
-lab3mode:	
+lab1mode:	
 	invoke InputBox, addr InputKeyBoxText, addr InputBoxName, addr KeyString
-	test   eax, eax                 ; ïðîâåðêà íà ïóñòîòó
+	test   eax, eax                 ; empty check
 	jz 	   errKeyError
-	cmp    eax, 1                   ; ïðîâåðêà íà äëèíó
+	cmp    eax, 1                   ; length check
 	ja     errKeyError
 	
-	mov    ebx, offset KeyString	; ïðîâåðêà íà áóêâû
+	mov    ebx, offset KeyString	; character check
 	jmp    asciicheck
-lab3ret:							; óìåíüøåíèå äî ìàëåíüêîé   		    	
-	mov    ebx, offset DefString	; ïîäãîòîâêà
+lab1ret:							; reduction to a small  		    	
+	mov    ebx, offset DefString	; prepare
 	mov	   ch, 0
 	mov    al, KeyString
 	
 	cmp    KeyString, 122					
-    ja     lab3delit			
+    ja     lab1delit			
     cmp    KeyString, 97
-    jb     lab3delit
-	jmp    lab3next
-lab3delit:
+    jb     lab1delit
+	jmp    lab1next
+lab1delit:
 	add	   KeyString, 32			; make letters great again!
 	mov    al, KeyString
 	
-lab3next:
+lab1next:
 	cmp    byte ptr [ebx],0
 	jz     cb
 	cmp    al, byte ptr [ebx]
 	jz 	   up
 	inc    ebx
 	inc    ch
-	jmp    lab3next
+	jmp    lab1next
 up:
 	add    byte ptr [ebx], -32
-	jmp    lab3next
+	jmp    lab1next
 	
-cb:									; âîçâðàò "êàðåòêè"
+cb:									; return "carriage"
 	cmp    ch,0
 	dec    ebx
 	dec    ch
 	jnz    cb
 	
-	invoke wsprintf, addr ValueLength, addr Lab3Format, ebx
+	invoke wsprintf, addr ValueLength, addr Lab1Format, ebx
 	invoke MessageBox, NULL, addr ValueLength, addr MsgBoxName, MB_YESNO
 	
 	cmp    eax, IDYES
-	jz     lab3mode
-	jmp    exit						; êîíåö 3 ëàáû
+	jz     lab1mode
+	jmp    exit						; end of first practice
 	
-lab4mode:
+lab2mode:
 	invoke InputBox, addr InputDefBoxText, addr InputBoxName, addr KeyString
-	test   eax, eax                 ; ïðîâåðêà íà ïóñòîòó
+	test   eax, eax                 ; empty check
 	jz 	   errValueInput
-	cmp    eax, 32                  ; ïðîâåðêà íà äëèíó
+	cmp    eax, 32                  ; length check
 	ja     errDefLength
 
-	mov    ebx, offset KeyString	; ïðîâåðêà íà áóêâû
+	mov    ebx, offset KeyString	; character check
 	jmp    asciicheck
-lab4ret:	
-	mov    ebx, offset DefString	; ïîäãîòîâêà ìàñêè
+lab2ret:	
+	mov    ebx, offset DefString	; mask preparation
 	mov	   ecx, 0
 	mov    dl,  0
-	mov    dh,  0                   ; eax  - ñ÷åò÷èê
+	mov    dh,  0                   ; eax - counter
 	
-lab4mask:
+lab2mask:
 	inc    dh
 	cmp    byte ptr[ebx],0
-	jz     lab4out
-	cmp    byte ptr[ebx], 90		; çàïèñü áîëüøèõ áóêâ â ìàñêó			
-    ja     lab4next	
+	jz     lab2out
+	cmp    byte ptr[ebx], 90		; writing uppercase letters into a mask			
+    ja     lab2next	
     cmp    byte ptr[ebx], 65
-    jb     lab4next
+    jb     lab2next
 	inc    ebx		
-	inc    dl 						; dl - ñ÷åò÷èê áîëüøèõ áóêâ
-	inc    ecx 						; çàïèñü 1 â ìàñêó
-	shl    ecx, 1					; ñäâèã
-	jmp    lab4mask
-lab4next:
+	inc    dl 						; dl - capital letter counter
+	inc    ecx 						; Write 1 to the mask
+	shl    ecx, 1					; shift
+	jmp    lab2mask
+lab2next:
 	inc	   ebx						
-	shl    ecx, 1					; çàïèñü 0 â ìàñêó
+	shl    ecx, 1					; Write 0 to the mask
 	cmp	   byte ptr[ebx], 0
-	jnz    lab4mask	
-lab4out:
-	shr    ecx, 1					; ecx - îòêàò äëÿ ñîõðàíåíèÿ ðàçìåðà è ãîòîâàÿ ìàñêà
+	jnz    lab2mask	
+lab2out:
+	shr    ecx, 1					; ecx - backup to save size and ready mask
 	mov    ah, 33
 	sub    ah, dh
 again:
-	dec    ah						; ïðîâîðîò ñòðîêè â íà÷àëî äëÿ 
-	shl    ecx, 1                   ; óäîáíîé ðàáîòû
+	dec    ah						; turning the string to the
+	shl    ecx, 1                   ; beginning for easy operation
 	cmp    ah, 0
 	jnz    again
 
 	
-	mov    dh,  0                   ; dh  - ñ÷åò÷èê
-	mov    ebx, offset KeyString    ; ebx - âòîðàÿ ñòðîêà
+	mov    dh,  0                   ; dh - counter
+	mov    ebx, offset KeyString    ; ebx - second line
 	mov    eax, 1b
-	ror    eax, 1					; çàïèñü ñ êîíöà
-lab4ans:
-	inc    dh						; óâåëè÷èâàåì ñ÷åò÷èê
+	ror    eax, 1					; write from the end
+lab2ans:
+	inc    dh						; increment the counter
 	cmp    byte ptr[ebx], 122		; 				
-    ja     lab4skip					; ïðîïóñê áîëüøèõ áóêâ
+    ja     lab2skip					; capital skipping
     cmp    byte ptr[ebx], 97		;
-    jb     lab4skip
-	cmp    dl, 0					; êîí÷èëèñü áîëüøèå áóêâû â êëþ÷å
-	jz     lab4exit					; 
+    jb     lab2skip
+	cmp    dl, 0					; run out of capital letters in the key
+	jz     lab2exit					; 
 	push   eax
-	and    eax, ecx					; ñðàâíèâàåì ñ îñíîâíîé ìàñêîé
-	cmp    eax, 0					; åñëè 0 òî íå íàø õîä
-	jnz    lab4up
+	and    eax, ecx					; compare with the main mask
+	cmp    eax, 0					; if 0 then it's not our move
+	jnz    lab2up
 	cmp    eax, 0
-	jz     lab4skip
-lab4up:
+	jz     lab2skip
+lab2up:
 	dec    dl
 	pop    eax
 	add    byte ptr[ebx], -32
 	inc    ebx
 	shr    eax,1
 	cmp    byte ptr[ebx], 0
-	jnz    lab4ans
+	jnz    lab2ans
 	cmp    byte ptr[ebx], 0
-	jz     lab4exit
-lab4skip:
+	jz     lab2exit
+lab2skip:
 	inc    ebx
 	pop    eax
 	shr    eax,1
 	cmp    byte ptr[ebx], 0
-	jnz    lab4ans
+	jnz    lab2ans
 	cmp    byte ptr[ebx], 0
-	jz     lab4exit
-lab4exit:							; âîçâðàò "êàðåòêè"
+	jz     lab2exit
+lab2exit:							; return of the "carriage"
 	cmp    dh,0
 	dec    ebx
 	dec    dh
-	jnz    lab4exit
+	jnz    lab2exit
 	
-	invoke wsprintf, addr ValueLength, addr Lab4Format, ebx
+	invoke wsprintf, addr ValueLength, addr Lab2Format, ebx
 	invoke MessageBox, NULL, addr ValueLength, addr MsgBoxName, MB_YESNO
 
 	cmp    eax, IDYES
-	jz     lab4mode
-	jmp    exit						; êîíåö 4 ëàáû
+	jz     lab2mode
+	jmp    exit						; end of second practice
 	
-errDefLength:						; îáðàáîòêà îøèáîê
+errDefLength:						; error handling
 	invoke MessageBox, NULL, addr DefLengthError, addr ErrCaption, MB_RETRYCANCEL + MB_ICONERROR
 	jmp    errRet
 	
@@ -235,7 +235,7 @@ errKeyError:
 	invoke MessageBox, NULL, addr KeyError, addr ErrCaption, MB_RETRYCANCEL + MB_ICONERROR	
 	jmp    errRet
 	
-errRet:								; îáðàáîòêà âîçâðàòà
+errRet:								; return processing
 	cmp    EAX, 4
 	jz     defmode
 	jmp    exit
@@ -243,21 +243,10 @@ defmode:
 	cmp    mode,0
 	jz     start
 	cmp    mode,6
-	jz     lab3mode
-	jmp    lab4mode
+	jz     lab1mode
+	jmp    lab2mode
 
 exit:	
 	invoke ExitProcess, NULL
 	
 end start
-
-
-
-
-
-
-
-
-
-
-
