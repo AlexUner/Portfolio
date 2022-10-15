@@ -1,6 +1,6 @@
 ; InputBox Prototype
-; Функция возвращает в EAX длину введённого текста
-; В случае ошибки, функция возвращает 0
-InputBox  PROTO   IB_SCText:DWORD,\	   ; Текст, показываемый в окне InputBox
-                  IB_Caption:DWORD,\   ; Заголовок окна InputBox
-                  IB_Buffer:DWORD	   ; Контейнер для введённого текста
+; The function returns the length of the entered text in EAX
+; If there is an error, the function returns 0
+InputBox  PROTO   IB_SCText:DWORD,\	   ; Text displayed in the InputBox window
+                  IB_Caption:DWORD,\   ; InputBox window header
+                  IB_Buffer:DWORD	   ; Container for entered text
