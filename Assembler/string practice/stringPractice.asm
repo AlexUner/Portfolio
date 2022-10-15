@@ -25,7 +25,7 @@ option casemap: none
 		Lab1Format       db "New line: %s", 13,
 							"Do you want to enter a new key?",0
 
-		DefString   	 dd 50  dup (0)
+		DefString   	 db 50  dup (0)
 		TmpString   	 db 50  dup (0)
 		KeyString   	 db 50  dup (0)
 		ValueLength  	 db 255 dup (0)
@@ -142,9 +142,9 @@ lab2ret:
 	mov    dh,  0                   ; eax - counter
 	
 lab2mask:
-	inc    dh
 	cmp    byte ptr[ebx],0
-	jz     lab2out
+	jz     lab4out
+	inc    dh
 	cmp    byte ptr[ebx], 90		; writing uppercase letters into a mask			
     ja     lab2next	
     cmp    byte ptr[ebx], 65
@@ -161,7 +161,7 @@ lab2next:
 	jnz    lab2mask	
 lab2out:
 	shr    ecx, 1					; ecx - backup to save size and ready mask
-	mov    ah, 33
+	mov    ah, 32
 	sub    ah, dh
 again:
 	dec    ah						; turning the string to the
@@ -170,47 +170,42 @@ again:
 	jnz    again
 
 	
-	mov    dh,  0                   ; dh - counter
 	mov    ebx, offset KeyString    ; ebx - second line
-	mov    eax, 1b
+	push   ebx
+	mov    eax, 1b        			; eax - mask for comparison
 	ror    eax, 1					; write from the end
+	
 lab2ans:
-	inc    dh						; increment the counter
-	cmp    byte ptr[ebx], 122		; 				
-    ja     lab2skip					; capital skipping
-    cmp    byte ptr[ebx], 97		;
-    jb     lab2skip
-	cmp    dl, 0					; run out of capital letters in the key
-	jz     lab2exit					; 
-	push   eax
-	and    eax, ecx					; compare with the main mask
-	cmp    eax, 0					; if 0 then it's not our move
-	jnz    lab2up
-	cmp    eax, 0
-	jz     lab2skip
-lab2up:
-	dec    dl
-	pop    eax
-	add    byte ptr[ebx], -32
-	inc    ebx
-	shr    eax,1
-	cmp    byte ptr[ebx], 0
-	jnz    lab2ans
-	cmp    byte ptr[ebx], 0
+	cmp	   byte ptr[ebx], 0			; end of line
+	jz     lab2exit	
+	cmp    dl, 0					; the end of capital letters in the key (mask)
 	jz     lab2exit
+	
+	push   eax
+	and    eax, ecx					; comparison of masks
+	cmp    eax, 0
+	pop    eax
+	jnz    lab2up					; if matched
+	inc    ebx
+	shr    eax, 1 
+	jmp    lab2ans	
+lab2up:
+	shr    eax, 1
+	dec    dl
+	cmp    byte ptr[ebx], 32		; space (exception)
+	jz     lab2skip
+	cmp    byte ptr[ebx], 122
+	ja     lab2skip					; if a capital letter in the second line
+    cmp    byte ptr[ebx], 97
+    jb     lab2skip
+	sub    byte ptr[ebx], 32
+	inc    ebx
+	jmp    lab2ans
 lab2skip:
 	inc    ebx
-	pop    eax
-	shr    eax,1
-	cmp    byte ptr[ebx], 0
-	jnz    lab2ans
-	cmp    byte ptr[ebx], 0
-	jz     lab2exit
-lab2exit:							; return of the "carriage"
-	cmp    dh,0
-	dec    ebx
-	dec    dh
-	jnz    lab2exit
+	jmp    lab2ans
+lab2exit:
+	pop    ebx
 	
 	invoke wsprintf, addr ValueLength, addr Lab2Format, ebx
 	invoke MessageBox, NULL, addr ValueLength, addr MsgBoxName, MB_YESNO
