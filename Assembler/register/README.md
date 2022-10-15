@@ -4,7 +4,7 @@ Replacing must be universal and work for any, not a specific character. The resu
 
 The desired character and text string must be entered on the command line after certain keys (@, #, $, %). The key for the character to be searched is to be entered first, the test string key is to be entered second. 
 
-The program should check if the character to be searched for belongs to to a set of lowercase Latin letters, otherwise the program will return an an error message. The program should also return an error message if the command line does not contain the keys or if the keys are missing a character(s). are given, but then there are no character(s)
+The program should check if the character to be searched for belongs to to a set of lowercase Latin letters, otherwise the program will return an an error message. The program should also return an error message if the command line does not contain the keys or if the keys are missing a character(s). are given, but then there are no character(s).
 
 <br>
 
@@ -14,7 +14,7 @@ The program should check if the character to be searched for belongs to to a set
 
 Искомый символ и текстовая строка вводятся в командной строке после определённых ключей (@, #, $, %). Причём ключ искомого символа вводится первым, а ключ тестовой строки – вторым. 
 
-Программа должна проверять искомый символ на принадлежность набору строчных латинских букв, в противном случае выдавать сообщение об ошибке. Также программа должна выдавать сообщение об ошибке, если в командной строке не указаны ключи или ключи указаны, но далее нет символа(ов)
+Программа должна проверять искомый символ на принадлежность набору строчных латинских букв, в противном случае выдавать сообщение об ошибке. Также программа должна выдавать сообщение об ошибке, если в командной строке не указаны ключи или ключи указаны, но далее нет символа(ов).
 
 <br>
 
