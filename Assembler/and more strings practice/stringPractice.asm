@@ -14,21 +14,21 @@ option casemap: none
 	.data
 		MsgBoxName    	db "MASM32 Prog",0
 		
-		InputBoxName    db "Ââîä ñòðîêè",0
-		InputDefBoxText db "Ïîæàëóéñòà, ââåäèòå ÑÒÐÎÊÓ íå áîëåå 255 ñèìâîëîâ äëèíîé!",0
-		InputKeyBoxText db "Ïîæàëóéñòà, ââåäèòå ÊËÞ× äëèíîé â 3 ñèìâîëà!",0
-		Format          db "Âûâåäåíû ñèìâîëû: %s",13,"Õîòèòå ââåñòè íîâûå äàííûå?",0
+		InputBoxName    db "Line entry",0
+		InputDefBoxText db "Please enter a STRING no longer than 255 characters!",0
+		InputKeyBoxText db "Please enter a KEY 3 characters long!",0
+		Format          db "Characters displayed: %s",13,"Do you want to enter new data?",0
 		
 		DefString   	db 255 dup (0)
 		KeyString   	db 50  dup (0)
 		ValueLength  	db 255 dup (0)
 		mode			db 0
 		
-		ErrCaption      db "Îøèáêà",0
-		ValueInputError db "Âû íå ââåëè çíà÷åíèÿ", 13, "Ïîâòîðèòü ââîä?",0
-		DefLengthError  db "Âû ââåëè áîëüøå 255 ñèìâîëîâ!",0
-		KeyLengthError  db "Êëþ÷ äîëæåí ñîñòîÿòü èç 3 ìàëåíüêèõ áóêâ!",0		
-		DefNumberError  db "Â ââåäåííîé ñòðîêå ïðèñóòñòâóþò íåäîïóñòèìûå ñèìâîëû.", 13, "Ïîâòîðèòü ââîä?",0
+		ErrCaption      db "Error",0
+		ValueInputError db "You have not entered values", 13, "Do you want me to re-enter?",0
+		DefLengthError  db "You have entered more than 255 characters!",0
+		KeyLengthError  db "The key must be 3 lowercase letters!",0		
+		DefNumberError  db "There are invalid characters in the entered string.", 13, "Do you want me to re-enter?",0
 		
 ;#########################################################################	
 	.code
@@ -36,22 +36,22 @@ include   \masm32\include\outofletters.inc
 
 start:
 	invoke InputBox, addr InputDefBoxText, addr InputBoxName, addr DefString
-	test   eax, eax                 ; ïðîâåðêà íà ïóñòîòó
-	jz 	   errValueInput  			; íå ââåäåíî
-	cmp    eax, 255                 ; ïðîâåðêà íà äëèíó
-	ja     errDefLength	  			; áîëüøå 255
-	mov    ebx, offset DefString 	; EBX - ââåäåííàÿ ñòðîêà
+	test   eax, eax                 ; empty check
+	jz 	   errValueInput  			
+	cmp    eax, 255                 ; length check
+	ja     errDefLength	  			
+	mov    ebx, offset DefString 	; EBX - entered string
 	
-asciicheck:               			; ïðîâåðêà ñèìâîëîâ - íå áóêâ
-	mov    al, byte ptr[ebx] 		; AL ïîñèìâîëüíî ïðèíèìàåò çíà÷åíèÿ èç 					   
-min:								; ââåäåííîé ñòðîêè è ïðîâåðÿåò íà áóêâû
+asciicheck:               			; character check - not letters
+	mov    al, byte ptr[ebx] 		; AL character-by-character takes values from 					   
+min:								; the entered string and checks for letters
 	cmp    al, 122					
     ja     max			
     cmp    al, 97
     jb     max
 	jmp    endminmax
 max:
-	cmp    al, 32					; ïðîáåë (èñêëþ÷åíèå)
+	cmp    al, 32					; space (exception)
 	jz     endminmax
 	cmp    al, 90					
     ja     errNumberError			
@@ -60,21 +60,21 @@ max:
 endminmax:	
 	inc    ebx
 	cmp    byte ptr[ebx], 0
-    jnz    asciicheck				; êîíåö ïðîâåðêè
+    jnz    asciicheck				; check end
 	
-	mov    mode, 1					; ïåðåêëþ÷àòåëü - âòîðàÿ ñåêöèÿ ïðîãðàììû
+	mov    mode, 1					; switch - second section of the programme
 
 key:
 	invoke InputBox, addr InputKeyBoxText, addr InputBoxName, addr KeyString
-	test   eax, eax                 ; ïðîâåðêà íà ïóñòîòó
-	jz 	   errValueInput  			; íå ââåäåíî
-	cmp    eax, 3                   ; ïðîâåðêà íà äëèíó
-	jnz    errKeyLength	  			; áîëüøå 255
-	mov    ebx, offset KeyString 	; EBX - ââåäåííàÿ ñòðîê
+	test   eax, eax                 ; empty check
+	jz 	   errValueInput  			
+	cmp    eax, 3                   ; length check
+	jnz    errKeyLength	  			
+	mov    ebx, offset KeyString 	; EBX - entered string
 
-key_asciicheck:               		; ïðîâåðêà ñèìâîëîâ - íå áóêâ
-	mov    al, byte ptr[ebx] 		; AL ïîñèìâîëüíî ïðèíèìàåò çíà÷åíèÿ èç 					   
-key_min:							; ââåäåííîé ñòðîêè è ïðîâåðÿåò íà áóêâû
+key_asciicheck:               		; character check - not letters
+	mov    al, byte ptr[ebx] 		; AL character-by-character takes values from 	 					   
+key_min:							; the entered string and checks for letters
 	cmp    al, 122					
     ja     errKeyLength			
     cmp    al, 97
@@ -83,16 +83,16 @@ key_min:							; ââåäåííîé ñòðîêè è ïðîâåðÿåò íà áó
 key_endminmax:	
 	inc    ebx
 	cmp    byte ptr[ebx], 0
-    jnz    key_asciicheck			; êîíåö ïðîâåðêè
+    jnz    key_asciicheck			; check end
 	
 	mov    eax, offset KeyString
 	
-	push   eax						; 4 àðãóìåíò - 1 áóêâà
+	push   eax						; 4 argument - 1 letter
 	inc    eax
-	push   eax						; 3 àðãóìåíò - 2 áóêâà
+	push   eax						; 3 argument - 2 letter
 	inc    eax
-	push   eax						; 2 àðãóìåíò - 3 áóêâà
-	push   offset DefString         ; 1 àðãóìåíò - ñòðîêà
+	push   eax						; 2 argument - 3 letter
+	push   offset DefString         ; 1 argument - string
 	
 	call   outOfLetters
 	
@@ -104,7 +104,7 @@ key_endminmax:
 	jz     start
 	jmp    exit	
 	
-errDefLength:						; îáðàáîòêà îøèáîê
+errDefLength:						; error handling
 	invoke MessageBox, NULL, addr DefLengthError, addr ErrCaption, MB_RETRYCANCEL + MB_ICONERROR
 	jmp    errRet
 
@@ -120,7 +120,7 @@ errNumberError:
 	invoke MessageBox, NULL, addr DefNumberError, addr ErrCaption, MB_RETRYCANCEL + MB_ICONERROR	
 	jmp    errRet
 
-errRet:								; îáðàáîòêà âîçâðàòà
+errRet:								; return processing
 	cmp    EAX, 4
 	jz     defmode
 	jmp    exit
@@ -133,14 +133,3 @@ exit:
 	invoke ExitProcess, NULL
 	
 end start
-
-
-
-
-
-
-
-
-
-
-
