@@ -10,7 +10,7 @@ includelib \masm32\lib\user32.lib
 includelib \masm32\lib\kernel32.lib
 
 .data
-	Caption db "MASM32 Prog 1",0
+	Caption db "MASM32 Prog",0
 	alarma 	db "Invalid input!",0
 	Result  db 255 dup(0)
 	Format  db "New line: %s",0
