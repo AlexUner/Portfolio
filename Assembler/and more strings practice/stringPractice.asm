@@ -17,7 +17,7 @@ option casemap: none
 		InputBoxName    db "Line entry",0
 		InputDefBoxText db "Please enter a STRING no longer than 255 characters!",0
 		InputKeyBoxText db "Please enter a KEY 3 characters long!",0
-		Format          db "Characters displayed: %s",13,"Do you want to enter new data?",0
+		Format          db "Characters displayed: %s",13,"Enter new data?",0
 		
 		DefString   	db 255 dup (0)
 		KeyString   	db 50  dup (0)
@@ -25,10 +25,10 @@ option casemap: none
 		mode			db 0
 		
 		ErrCaption      db "Error",0
-		ValueInputError db "You have not entered values", 13, "Do you want to re-enter?",0
+		ValueInputError db "You have not entered values", 13, "Re-enter?",0
 		DefLengthError  db "You have entered more than 255 characters!",0
 		KeyLengthError  db "The key must be 3 lowercase letters!",0		
-		DefNumberError  db "There are invalid characters in the entered string.", 13, "Do you want to re-enter?",0
+		DefNumberError  db "There are invalid characters in the entered string.", 13, "Re-enter?",0
 		
 ;#########################################################################	
 	.code
