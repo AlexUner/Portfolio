@@ -31,3 +31,14 @@ Connect the procedure to the program and use it to display a formatted message.
 Подключить процедуру к программе и использовать для вывода на экран форматированного сообщения.
 
 <br>
+
+<table><tr><td style="margin: 0!important;"> 
+  
+  [main prog](procedure.asm) 
+  
+  </td>
+  <td style="margin: 0!important;"> 
+  
+  [procedure](str.inc) 
+  
+</td></tr></table>
