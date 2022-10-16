@@ -57,14 +57,3 @@ start:
 	invoke ExitProcess, NULL
 	
 end start
-
-
-
-
-
-
-
-
-
-
-
