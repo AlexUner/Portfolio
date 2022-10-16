@@ -21,9 +21,9 @@ option casemap: none
 							"2. No, to work with the second string",0
 		MessageTemplate  db "Number of characters in entered string: %s",0
 		Lab2Format 	 	 db "New second string: %s", 13,
-							"Do you want to enter a new string?",0
+							"Enter a new string?",0
 		Lab1Format       db "New line: %s", 13,
-							"Do you want to enter a new key?",0
+							"Enter a new key?",0
 
 		DefString   	 db 50  dup (0)
 		TmpString   	 db 50  dup (0)
@@ -33,7 +33,7 @@ option casemap: none
 		bitmask			 db 0
 		
 		ErrCaption       db "Error",0
-		ValueInputError  db "You have not entered a value", 13, "Do you want to re-enter?",0
+		ValueInputError  db "You have not entered a value", 13, "Re-enter?",0
 		DefLengthError   db "You have entered more than 32 characters!",0
 		DefNumberError   db "There are invalid characters in the entered string.", 13, 
 	                        "Repeat input?",0
