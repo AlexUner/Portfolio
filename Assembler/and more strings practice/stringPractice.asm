@@ -25,10 +25,10 @@ option casemap: none
 		mode			db 0
 		
 		ErrCaption      db "Error",0
-		ValueInputError db "You have not entered values", 13, "Do you want me to re-enter?",0
+		ValueInputError db "You have not entered values", 13, "Do you want to re-enter?",0
 		DefLengthError  db "You have entered more than 255 characters!",0
 		KeyLengthError  db "The key must be 3 lowercase letters!",0		
-		DefNumberError  db "There are invalid characters in the entered string.", 13, "Do you want me to re-enter?",0
+		DefNumberError  db "There are invalid characters in the entered string.", 13, "Do you want to re-enter?",0
 		
 ;#########################################################################	
 	.code
