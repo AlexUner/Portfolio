@@ -32,13 +32,13 @@ Connect the procedure to the program and use it to display a formatted message.
 
 <br>
 
-<table><tr><td style="margin: 0!important;"> 
+<table><tr><td> 
   
   [main prog](procedure.asm) 
-  
   </td>
-  <td style="margin: 0!important;"> 
+  <td> 
   
   [procedure](str.inc) 
-  
 </td></tr></table>
+
+| [main prog](procedure.asm)  | [procedure](str.inc)  |
