@@ -64,45 +64,45 @@ chk endp
 strpos proc mainline:dword, outline:dword
 	pusha
 	
-	mov		eax, 0				; al - счетчик подстроки
-	mov		edx, 0				; dh - счетчик строки
-	mov		ebx, mainline		; ЕВХ строка
-	mov		ecx, outline		; ЕСХ подстрока
+	mov		eax, 0				; al - substring counter
+	mov		edx, 0				; dh - string counter
+	mov		ebx, mainline		; ЕВХ string
+	mov		ecx, outline		; ЕСХ substring
 	push	ecx					
 	
 strpos_beg:
 	mov		dl, byte ptr[ebx]
-	cmp		dl, byte ptr[ecx]	; сравнение букв
-	jz		strpos_inc			; выбор решения
+	cmp		dl, byte ptr[ecx]	; letter comparison
+	jz		strpos_inc			; selection of a solution
 	jmp		strpos_dec
 	
 strpos_inc:
-	inc		al					; совпала буква
-	inc		ecx					; следующая буква подстроки
-	jmp		strpos_skip			; счетчик строки++
+	inc		al					; matched letter
+	inc		ecx					; the next letter of the substring
+	jmp		strpos_skip			; string counter++
 	
 strpos_dec:
-	cmp		al, 0				; несовпала вообще
+	cmp		al, 0				; mismatched at all
 	jz		strpos_skip			
 	
 strpos_dec_part2:
 	pop		ecx
-	push	ecx					; несовпала на середине
-	mov		al, 0				; слова, повтор проверки
-	jmp		strpos_beg			; первой буквы
+	push	ecx					; mismatched in the middle
+	mov		al, 0				; words, re-checking
+	jmp		strpos_beg			; the first letter
 	
 strpos_skip:
-	inc		ebx					; некст буква строки		
-	inc		dh					; счетчик строки++
+	inc		ebx					; next letter of the string		
+	inc		dh					; string counter++
 strpos_chek:
 	cmp		byte ptr[ebx], 0
-	jz		strpos_chek2		; конец строки, но что с substr
+	jz		strpos_chek2		; end of line, but what about substr
 	cmp		byte ptr[ecx], 0
-	jz		strposGoodEnd		; если кончилась substr, то это хорошо
+	jz		strposGoodEnd		; if you run out of substr, that's a good thing
 	jmp		strpos_beg
 
 strpos_chek2:
-	cmp		byte ptr[ecx], 0	; кончилась substr + str = gg
+	cmp		byte ptr[ecx], 0	; ended substr + str = gg
 	jz		strposGoodEnd
 	
 strposBadEnd:
@@ -176,17 +176,17 @@ IntToStr proc str_:dword, num:dword
 	pusha	
 	
 	mov		ebx, num
-	mov		eax, dword ptr[ebx]		; берем число в числитель
+	mov		eax, dword ptr[ebx]		; take the number in the numerator
 	mov		ebx, 0
-	mov 	ecx, 0					; обнуление
+	mov 	ecx, 0					; zeroing
 	mov 	edx, 0
 	
 met:
-	inc		bl						; счетчик символов
-	mov		ecx, 10					; знаменатель 10
-	div		ecx						; делим
-	push 	edx						; в стек остаток
-	mov		edx, 0					; чистим пару axdx
+	inc		bl						; character count
+	mov		ecx, 10					; denominator 10
+	div		ecx						; divide
+	push 	edx						; on the stack remainder
+	mov		edx, 0					; clear the axdx pair
 	cmp		eax, 0
 	jnz		met
 	
@@ -217,7 +217,7 @@ StrToInt proc num:dword, str_:dword
 	pusha	
 	
 	mov		eax, num
-	mov		dword ptr[eax], 0		; очищаем переменную
+	mov		dword ptr[eax], 0		; clear the variable
 	mov		eax, 0
 	
 	mov		ecx, str_
@@ -267,10 +267,10 @@ endm
 Concatenatio proc arg4:dword, arg3:dword, arg2:dword, arg1:dword, outarg:dword
 	pusha							; <<
 	
-	mov    	eax, 0					; eax - счетчик символов
-	mov    	edx, outarg				; edx - итоговая строка
-	mov    	ebx, arg1				; ebx - переменная строка
-	mov    	ecx, 0					; ecx - счетчик строк
+	mov    	eax, 0					; eax - character counter
+	mov    	edx, outarg				; edx - summary line
+	mov    	ebx, arg1				; ebx - variable string
+	mov    	ecx, 0					; ecx - row counter
 	push   	ecx						; <-
 	
 f_begin:
