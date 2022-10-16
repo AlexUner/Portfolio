@@ -14,10 +14,10 @@ option casemap: none
 	.data
 		MsgBoxName    	db "MASM32 Prog",0
 		
-		InputBoxName    db "Ввод строки",0
-		InputDefBoxText db "Пожалуйста, введите СТРОКУ не более 255 символов длиной!",0
-		Format1         db "Выведены символы:     ",0
-		Format2         db 13,"Количество символов: %lu",13,"Хотите ввести новые данные?",0
+		InputBoxName    db "Line entry",0
+		InputDefBoxText db "Please enter a STRING no longer than 255 characters!",0
+		Format1         db "The symbols are displayed:",0
+		Format2         db 13,"Character count: %lu",13,"Do you want to enter new data?",0
 		
 		FirstString   	db 50  dup (0)
 		SecondString   	db 50  dup (0)
@@ -27,9 +27,9 @@ option casemap: none
 		ValueLength  	db 255 dup (0)
 		mode            db 0
 		
-		ErrCaption      db "Ошибка",0
-		ValueInputError db "Вы не ввели значения", 13, "Повторить ввод?",0
-		DefLengthError  db "Вы ввели больше 50 символов!", 13, "Повторить ввод?",0		
+		ErrCaption      db "Error",0
+		ValueInputError db "You have not entered values", 13, "Do you want to re-enter?",0
+		DefLengthError  db "Г‚Г» ГўГўГҐГ«ГЁ ГЎГ®Г«ГјГёГҐ 50 Г±ГЁГ¬ГўГ®Г«Г®Гў!", 13, "ГЏГ®ГўГІГ®Г°ГЁГІГј ГўГўГ®Г¤?",0		
 		
 ;#########################################################################	
 	.code
@@ -38,40 +38,40 @@ include   \masm32\include\str.inc
 start:
 	mov    mode, 1
 	invoke InputBox, addr InputDefBoxText, addr InputBoxName, addr FirstString
-	test   eax, eax                 ; проверка на пустоту
-	jz 	   errValueInput  			; не введено
-	cmp    eax, 50                  ; проверка на длину
-	ja     errDefLength	  			; больше 50
+	test   eax, eax                 ; ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  ГЇГіГ±ГІГ®ГІГі
+	jz 	   errValueInput  			; Г­ГҐ ГўГўГҐГ¤ГҐГ­Г®
+	cmp    eax, 50                  ; ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г¤Г«ГЁГ­Гі
+	ja     errDefLength	  			; ГЎГ®Г«ГјГёГҐ 50
 s2:
 	mov    mode, 2
 	invoke InputBox, addr InputDefBoxText, addr InputBoxName, addr SecondString
-	test   eax, eax                 ; проверка на пустоту
-	jz 	   errValueInput  			; не введено
-	cmp    eax, 50                  ; проверка на длину
-	ja     errDefLength	  			; больше 50
+	test   eax, eax                 ; ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  ГЇГіГ±ГІГ®ГІГі
+	jz 	   errValueInput  			; Г­ГҐ ГўГўГҐГ¤ГҐГ­Г®
+	cmp    eax, 50                  ; ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г¤Г«ГЁГ­Гі
+	ja     errDefLength	  			; ГЎГ®Г«ГјГёГҐ 50
 s3:	
 	mov    mode, 3
 	invoke InputBox, addr InputDefBoxText, addr InputBoxName, addr ThirdString
-	cmp    eax, 50                  ; проверка на длину
-	ja     errDefLength	  			; больше 50
+	cmp    eax, 50                  ; ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г¤Г«ГЁГ­Гі
+	ja     errDefLength	  			; ГЎГ®Г«ГјГёГҐ 50
 s4:
 	mov    mode, 4
 	invoke InputBox, addr InputDefBoxText, addr InputBoxName, addr FourthString
-	cmp    eax, 50                  ; проверка на длину
-	ja     errDefLength	  			; больше 50
+	cmp    eax, 50                  ; ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г¤Г«ГЁГ­Гі
+	ja     errDefLength	  			; ГЎГ®Г«ГјГёГҐ 50
 	
-	push   offset ResString			; 5 аргумент результирующий
-	push   offset FirstString       ; 1 аргумент
-	push   offset SecondString		; 2 аргумент
-	push   offset ThirdString		; 3 аргумент
-	push   offset FourthString		; 4 аргумент
+	push   offset ResString			; 5 Г Г°ГЈГіГ¬ГҐГ­ГІ Г°ГҐГ§ГіГ«ГјГІГЁГ°ГіГѕГ№ГЁГ©
+	push   offset FirstString       ; 1 Г Г°ГЈГіГ¬ГҐГ­ГІ
+	push   offset SecondString		; 2 Г Г°ГЈГіГ¬ГҐГ­ГІ
+	push   offset ThirdString		; 3 Г Г°ГЈГіГ¬ГҐГ­ГІ
+	push   offset FourthString		; 4 Г Г°ГЈГіГ¬ГҐГ­ГІ
 	call   Concatenatio
 	
 	push   eax
 	
 	push   offset ValueLength
 	push   offset Format1
-	push   offset ResString			; собираем вывод
+	push   offset ResString			; Г±Г®ГЎГЁГ°Г ГҐГ¬ ГўГ»ГўГ®Г¤
 	push   offset Format2
 	push   0
 	call   Concatenatio
@@ -85,7 +85,7 @@ s4:
 	jz     start
 	jmp    exit	
 	
-errDefLength:						; обработка ошибок
+errDefLength:						; Г®ГЎГ°Г ГЎГ®ГІГЄГ  Г®ГёГЁГЎГ®ГЄ
 	invoke MessageBox, NULL, addr DefLengthError, addr ErrCaption, MB_RETRYCANCEL + MB_ICONERROR
 	jmp    errRet
 	
@@ -93,7 +93,7 @@ errValueInput:
 	invoke MessageBox, NULL, addr ValueInputError, addr ErrCaption, MB_RETRYCANCEL + MB_ICONERROR	
 	jmp    errRet
 
-errRet:								; обработка возврата
+errRet:								; Г®ГЎГ°Г ГЎГ®ГІГЄГ  ГўГ®Г§ГўГ°Г ГІГ 
 	cmp    EAX, 4
 	jz     defmode
 	jmp    exit
