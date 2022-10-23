@@ -14,7 +14,7 @@ Implement a substring search function (similar to substr). The function should t
 
 Connect the function to your program and use it for substring search according to the parameters entered by the user.
   
-| [Task A](Procedure1.asm)  |
+| [Task A](procedure1.asm)  |
 | --- |
 
 </td>
@@ -40,7 +40,7 @@ Implement a function to find the position of the first substring in a string (an
 
 Connect the function to your program and use it to search for the index of the substring entered by the user. Output a corresponding message if the sought substring is not found.
   
-| [Task B](Procedure2.asm)  |
+| [Task B](procedure2.asm)  |
 | --- |
 
 </td>
