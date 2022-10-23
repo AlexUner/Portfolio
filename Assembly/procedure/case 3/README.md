@@ -13,6 +13,9 @@
 Implement a substring search function (similar to substr). The function should take as input source string, index of substring start position and number of characters in substring. At the output, the function returns the substring itself.
 
 Connect the function to your program and use it for substring search according to the parameters entered by the user.
+  
+| [Task A](Procedure1.asm)  |
+| --- |
 
 </td>
 
@@ -36,6 +39,9 @@ Connect the function to your program and use it for substring search according t
 Implement a function to find the position of the first substring in a string (analog of strpos). The function should take as input source string and substring. At the output, the function returns the index of the first character of the found substring in the source string. If no substring is found, EAX is set to 0.
 
 Connect the function to your program and use it to search for the index of the substring entered by the user. Output a corresponding message if the sought substring is not found.
+  
+| [Task B](Procedure2.asm)  |
+| --- |
 
 </td>
 
