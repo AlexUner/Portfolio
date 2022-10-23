@@ -58,6 +58,3 @@ Connect the function to your program and use it to search for the index of the s
 </table>
 
 <br>
-
-| [Task A](Procedure1.asm)  | [Task B](Procedure2.asm)  |
-| --- | --- |
