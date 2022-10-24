@@ -22,5 +22,5 @@ Implement a function to convert a positive integer number to its character repre
 
 <br>
 
-| [main prog](procedure.asm)  | [procedure](str.inc)  |
+| [main prog](math.asm)  | [procedure](str.inc)  |
 | --- | --- |
