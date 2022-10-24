@@ -14,12 +14,12 @@ option casemap: none
 	.data
 		MsgBoxName    	db "MASM32 Prog",0
 ;#GENERAL TEXT 	
-		InputBoxName    db "Ввод строки",0
-		InputBoxTextFir db "Пожалуйста, введите количество итераций",0
+		InputBoxName    db "Line entry",0
+		InputBoxTextFir db "Please enter the number of iterations",0
 ;#OUTPUT		
-		Format1         db    "Сумма ряда: ",0
-		Format2			db 13,"Количество итераций: ",0
-		Format3         db 13,"Хотите ввести новые данные?",0
+		Format1         db    "The sum of the series: ",0
+		Format2			db 13,"Number of iterations: ",0
+		Format3         db 13,"Re-enter?",0
 		dot				db    ".",0
 ;#VARIABLES		
 		FirstString   	db 50  dup (0)
