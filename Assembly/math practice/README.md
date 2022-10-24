@@ -1,24 +1,20 @@
-<h2 align="center">Implement your own external universal functions to translate textual representations of numbers to numeric form and numeric values to text representation (analogous to StrToInt() and IntToStr())</h2>
+<h2 align="center">Create a program that calculates the sum of a series</h2>
 
-*<h3>Task A</h3>*
+Использовать функцию InputBox для ввода значения n, функции StrToInt и IntToStr для перевода строкового значения в числовое и обратно, функцию Concat для объединения строк и вывода форматированного ответа на экран в сообщении с помощью MessageBox.
 
-Implement a function to translate a text representation of a number into a numeric representation. The address of the variable with the string to be translated and the address of the variable to which the result will be written as a double word number must be passed to the function.
+$$ \sum_{i=0}^{n}  \frac{1}{2^{i}} $$
 
-*<h3>Task B</h3>*
-
-Implement a function to convert a positive integer number to its character representation. The address of the variable with the original numeric value of double word size and the address of the variable where the string with the result of the function will be written must be passed to the function.
+Вычисление суммы ряда должно производиться до тех пор, пока не будет достигнута точность в 4 знака после запятой или количество итераций не станет больше 30. Результат следует вывести в окне сообщения. В том же окне сообщения необходимо показать количество итераций, потребовавшихся для вычисления суммы ряда.
 
 <br>
 
-<h2 align="center">Реализовать собственные внешние универсальные функции перевода текстовых представлений чисел в числовой вид и числовых значений в текстовое представление (аналог StrToInt() и IntToStr())</h2>
+<h2 align="center">Создать программу, осуществляющую вычисление суммы ряда</h2>
 
-*<h3>Задание А</h3>*
+Use the InputBox function to enter a value of n, the StrToInt and IntToStr functions to convert a string value into a numeric value and vice versa, the Concat function to combine strings and display a formatted response in a message using MessageBox.
 
-Реализовать функцию перевода текстового представления числа в числовой вид. В функцию должен передаваться адрес переменной со строкой, предназначенной для перевода, и адрес переменной, в которую будет записан результат перевода в виде числа размером в двойное слово.
+$$ \sum_{i=0}^{n}  \frac{1}{2^{i}} $$
 
-*<h3>Задание В</h3>*
-
-Реализовать функцию перевода целого положительного числа в его символьное представление. В функцию должен передаваться адрес переменной с исходным числовым значением размера двойной слово и адрес переменной, в которую будет записана строка с результатом работы функции.
+The sum of the series must be calculated until the accuracy of 4 decimal places is reached or the number of iterations is greater than 30. The result should be displayed in the message window. The same message window should show the number of iterations required to calculate the sum of the series.
 
 <br>
 
