@@ -1,4 +1,4 @@
-<h2 align="center">Create a program that calculates the value of an expression</h2>
+<h2 align="center">Create a program that calculates the greatest common divisor of two given numbers</h2>
 
 $$  \frac{ 2n }{ (n-1)! } + m! $$
 
@@ -6,7 +6,7 @@ $$  \frac{ 2n }{ (n-1)! } + m! $$
 
 <br>
 
-<h2 align="center">Создать программу, осуществляющую вычисление значения выражения</h2>
+<h2 align="center">Создать программу, вычисляющую наибольший общий делитель для двух введённых чисел</h2>
 
 $$  \frac{ 2n }{ (n-1)! } + m! $$
 
