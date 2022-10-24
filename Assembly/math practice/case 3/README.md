@@ -14,5 +14,5 @@ The raw data are entered in the input dialogue box. The result must be displayed
 
 <br>
 
-| [main prog](math.asm)  | [procedure](str.inc)  | [macros](math.inc)  |
+| [main prog](math.asm)  | [procedure](str.inc)  | [macros](math.asm)  |
 | --- | --- | --- |
