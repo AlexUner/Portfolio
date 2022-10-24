@@ -49,7 +49,7 @@ s2:
 	mov    	mode, 2
 	invoke 	InputBox, addr InputBoxTextInd, addr InputBoxName, addr SecondString
 	test   	eax, eax                 	
-	jz 	   	errValueInput  				î
+	jz 	   	errValueInput  				
 	cmp    	eax, ebx                  	
 	ja     	errCountError	  			
 	
