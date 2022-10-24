@@ -1,20 +1,21 @@
-<h2 align="center">Create a program that calculates the sum of a series</h2>
+<h2 align="center">Create a program that calculates the value of an expression</h2>
 
-Использовать функцию InputBox для ввода значения n, функции StrToInt и IntToStr для перевода строкового значения в числовое и обратно, функцию Concat для объединения строк и вывода форматированного ответа на экран в сообщении с помощью MessageBox.
+Использовать функцию InputBox для ввода значений переменных, функции StrToInt и IntToStr для перевода строкового значения в числовое и обратно, функцию Concat для объединения строк и вывода форматированного ответа на экран в сообщении с помощью MessageBox.
 
-$$ \sum_{i=0}^{n}  \frac{1}{2^{i}} $$
+$$  \frac{ a^{2} + b^{2} }{  \big(c - d\big) ^{2} } $$
 
-Вычисление суммы ряда должно производиться до тех пор, пока не будет достигнута точность в 4 знака после запятой или количество итераций не станет больше 30. Результат следует вывести в окне сообщения. В том же окне сообщения необходимо показать количество итераций, потребовавшихся для вычисления суммы ряда.
+Результат необходимо вывести в окне сообщения в десятичном виде с точностью до 4 знаков после запятой. При возникновении ошибки деления на ноль, вывести соответствующее сообщение 
+с предупреждением.
 
 <br>
 
-<h2 align="center">Создать программу, осуществляющую вычисление суммы ряда</h2>
+<h2 align="center">Создать программу, осуществляющую вычисление значения выражения</h2>
 
-Use the InputBox function to enter a value of n, the StrToInt and IntToStr functions to convert a string value into a numeric value and vice versa, the Concat function to combine strings and display a formatted response in a message using MessageBox.
+Use the InputBox function to enter variable values, the StrToInt and IntToStr functions to convert a string value into a numeric value and back, the Concat function to combine strings and display the formatted response in a message using MessageBox.
 
-$$ \sum_{i=0}^{n}  \frac{1}{2^{i}} $$
+$$  \frac{ a^{2} + b^{2} }{  \big(c - d\big) ^{2} } $$
 
-The sum of the series must be calculated until the accuracy of 4 decimal places is reached or the number of iterations is greater than 30. The result should be displayed in the message window. The same message window should show the number of iterations required to calculate the sum of the series.
+The result must be displayed in the message window in decimal form to 4 decimal places. If a division error occurs, a warning message is displayed.
 
 <br>
 
