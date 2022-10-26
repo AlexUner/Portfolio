@@ -41,7 +41,7 @@ UPDATE Products SET ProductName = 'Expensive Milk', Price = 500
 WHERE ProductName='EvriDay';
 
 DELETE FROM Products  
-WHERE ProductName='Expencive Milk'; 
+WHERE ProductName='Expensive Milk'; 
 
 SELECT *  
 FROM Products;
