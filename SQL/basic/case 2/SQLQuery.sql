@@ -37,7 +37,7 @@ IF @MyCounter = 6 BEGIN
 INSERT INTO Products  
 VALUES (1, 'EvriDay', 50);
 
-UPDATE Products SET ProductName = 'Expencive Milk', Price = 500
+UPDATE Products SET ProductName = 'Expensive Milk', Price = 500
 WHERE ProductName='EvriDay';
 
 DELETE FROM Products  
